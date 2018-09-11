@@ -6,7 +6,8 @@ services:
       context: .
       dockerfile: ./Dockerfile
     ports:
-      - 127.0.0.1:3000:3000    # localhost only by default
+      #- 127.0.0.1:3000:3000    # localhost only by default
+      - 3000:3000
     links:
       - mongo:mongo
       - elasticsearch:elasticsearch
@@ -32,13 +33,15 @@ services:
       - growi_data:/data
 
   mongo:
-    image: mongo:3.4
+    # image: mongo:3.4
+    image: andresvidal/rpi3-mongodb3
     volumes:
       - mongo_configdb:/data/configdb
       - mongo_db:/data/db
 
   elasticsearch:
-    image: elasticsearch:5.3-alpine
+    # image: elasticsearch:5.3-alpine
+    image: ind3x/rpi-elasticsearch:latest
     environment:
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"  # increase amount if you have enough memory
     command:
